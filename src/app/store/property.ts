@@ -1,11 +1,14 @@
 import { create } from "zustand";
 
-type Property = {
+export type Property = {
     id: number;
+    uid: string;
+    name: string;
     rent: number;
     prefecture: string;
-    municipalities: string;
-    houseNumber: number;
+    city: string;
+    town: string;
+    address: string;
     building: string;
     distanceMinutes: number;
     floorPlan: string;
@@ -23,10 +26,13 @@ type Actions = {
 
 export const usePropertyStore = create<Property & Actions>((set) => ({
     id: 0,
+    uid: '',
+    name: '',
     rent: 0,
     prefecture: '',
-    municipalities: '',
-    houseNumber: 0,
+    city: '',
+    town: '',
+    address: '',
     building: '',
     distanceMinutes: 0,
     floorPlan: '',

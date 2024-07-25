@@ -1,4 +1,5 @@
-import { AppBar, Box, IconButton, SxProps, Theme, Toolbar, Typography } from "@mui/material";
+'use client';
+import { Box, SxProps, Theme } from "@mui/material";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
