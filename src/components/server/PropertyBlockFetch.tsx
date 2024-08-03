@@ -1,5 +1,5 @@
-import { getAllProperties } from '@/app/core/api';
-import { PropertyType } from '@/app/store/property';
+import { getAllProperties } from '@/core/api';
+import { PropertyType } from '@/store/property';
 import React from 'react';
 import { PropertyBlock } from '../client/home/PropertyBlock';
 

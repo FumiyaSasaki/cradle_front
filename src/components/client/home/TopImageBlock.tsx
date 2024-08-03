@@ -1,7 +1,7 @@
 'use client';
-import { Box, SxProps, Theme } from "@mui/material";
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Box, SxProps, Theme } from '@mui/material';
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 export const TopImageBlock = React.memo(() => {

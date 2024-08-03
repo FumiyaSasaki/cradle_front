@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { PropertyType, usePropertyStore } from '../../../store/property';
-import { getPropertyByUid } from '../../../core/api';
 import { Box, Typography } from '@mui/material';
 import Link from 'next/link';
+import { PropertyType, usePropertyStore } from '@/store/property';
+import { getPropertyByUid } from '@/core/api';
 
 export const DetailPage = React.memo(({ uid }: { uid: string }) => {
   const [property, setProperty] = useState<PropertyType>(usePropertyStore().propertyState[uid]);

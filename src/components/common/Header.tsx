@@ -1,6 +1,6 @@
-import { AppBar, IconButton, SxProps, Theme, Toolbar, Typography } from "@mui/material";
+import { AppBar, IconButton, SxProps, Theme, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import React from "react";
+import React from 'react';
 
 export const Header = React.memo(() => {
     return (

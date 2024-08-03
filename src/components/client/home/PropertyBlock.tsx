@@ -3,8 +3,8 @@ import { Box, SxProps, Theme, Typography } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import { PropertyType, usePropertyStore } from '../../../store/property';
-import { DummyData } from '@/app/tool/dummyData';
+import { PropertyType, usePropertyStore } from '@/store/property';
+import { DummyData } from '@/tool/dummyData';
 
 export const PropertyBlock = React.memo(({
     propertiesData

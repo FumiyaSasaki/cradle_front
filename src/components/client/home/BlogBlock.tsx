@@ -3,9 +3,9 @@ import { Box, Divider, SxProps, Theme, Typography } from '@mui/material';
 import React from 'react';
 import Link from 'next/link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import { BlogType } from '@/app/store/blog';
-import { formatDate } from '@/app/helper/format';
-import { DummyData } from '@/app/tool/dummyData';
+import { BlogType } from '@/store/blog';
+import { formatDate } from '@/helper/format';
+import { DummyData } from '@/tool/dummyData';
 
 export const BlogBlock = React.memo(({
     blogsData
