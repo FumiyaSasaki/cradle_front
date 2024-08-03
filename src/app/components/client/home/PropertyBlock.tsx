@@ -3,15 +3,15 @@ import { Box, SxProps, Theme, Typography } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import { Property, usePropertyStore } from '../store/property';
-const imgUrl = 'http://fs561381.xsrv.jp/img/test.png';
+import { PropertyType, usePropertyStore } from '../../../store/property';
+import { DummyData } from '@/app/tool/dummyData';
 
-export const PropertyList = React.memo(({
+export const PropertyBlock = React.memo(({
     propertiesData
 }: {
-    propertiesData: Property[];
+    propertiesData: PropertyType[];
 }) => {
-    const setProperty = useCallback(usePropertyStore((state) => state.setProperties), []);
+    const setProperty = useCallback(usePropertyStore((state) => state.setPropertyState), []);
 
     useEffect(() => {
         setProperty(propertiesData);
@@ -20,13 +20,13 @@ export const PropertyList = React.memo(({
     return (<Box sx={styles.container}>
         <Typography sx={styles.title}>物件一覧</Typography>
         <Box sx={styles.itemContainer}>
-            {propertiesData.map((item: Property) => (
-                <Box sx={styles.itemBox} key={item.id}>
+            {propertiesData.map((item: PropertyType) => (
+                <Box sx={styles.itemBox} key={item.uid}>
                     <Link href={`/detail/${item.uid}`}>
                         <Box sx={styles.icon} bgcolor={item.isVacancy ? 'yellow' : 'white'}>
                             <span>{item.isVacancy ? '募集中' : '満室'}</span>
                         </Box>
-                        <img alt='' src={imgUrl} width='100%' height='auto' />
+                        <img alt='' src={DummyData.imageUrl} width='100%' height='auto' />
                         <Box sx={styles.explanationBox}>
                             <Box sx={styles.textBox}>
                                 <Typography sx={styles.name}>{item.name}</Typography>
@@ -41,7 +41,7 @@ export const PropertyList = React.memo(({
     </Box>);
 });
 
-PropertyList.displayName = 'PropertyList';
+PropertyBlock.displayName = 'PropertyBlock';
 
 const styles: { [key: string]: SxProps<Theme> } = {
     container: {

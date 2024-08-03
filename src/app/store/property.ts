@@ -1,7 +1,6 @@
 import { create } from "zustand";
 
-export type Property = {
-    id: number;
+export type PropertyType = {
     uid: string;
     name: string;
     rent: number;
@@ -10,10 +9,11 @@ export type Property = {
     town: string;
     address: string;
     building: string;
-    distanceMinutes: number;
     floorPlan: string;
-    age: number;
     direction: string;
+    imageUrls: string[];
+    distanceMinutes: number;
+    age: number;
     occupancyArea: number;
     deposit: number;
     keyMoney: number;
@@ -21,18 +21,18 @@ export type Property = {
 };
 
 type Actions = {
-    setProperties: (newProperties: Property[]) => void;
+    setPropertyState: (newProperties: PropertyType[]) => void;
 };
 
-type Properties = { propertiesState: { [key: string]: Property } };
+type PropertyState = { propertyState: { [key: string]: PropertyType } };
 
-export const usePropertyStore = create<Properties & Actions>((set) => ({
-    propertiesState: {},
-    setProperties: (newProperties: Property[]) => set(state => {
-        newProperties.forEach((property: Property) => {
-            state.propertiesState[property.uid] = property;
+export const usePropertyStore = create<PropertyState & Actions>(set => ({
+    propertyState: {},
+    setPropertyState: (newProperties: PropertyType[]) => set(state => {
+        newProperties.forEach((property: PropertyType) => {
+            state.propertyState[property.uid] = property;
         });
-        return ({ propertiesState: state.propertiesState })
+        return ({ propertyState: state.propertyState })
     })
 }));
 

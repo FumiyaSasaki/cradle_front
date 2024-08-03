@@ -2,32 +2,32 @@
 import { Box, Divider, SxProps, Theme, Typography } from '@mui/material';
 import React from 'react';
 import Link from 'next/link';
-import { NewsType } from '../store/news';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-const imgUrl = 'http://fs561381.xsrv.jp/img/test.png';
+import { BlogType } from '@/app/store/blog';
+import { formatDate } from '@/app/helper/format';
+import { DummyData } from '@/app/tool/dummyData';
 
-export const NewsList = React.memo(({
-    newsData
+export const BlogBlock = React.memo(({
+    blogsData
 }: {
-    newsData: NewsType[];
+    blogsData: BlogType[];
 }) => {
-    const formatDate = (date: Date) => date.toLocaleDateString('ja', { year: 'numeric', month: 'short', day: 'numeric' });
     return (<Box sx={styles.container}>
         <Box sx={styles.titleBox}>
             <Typography sx={styles.title}>BLOG</Typography>
             <MenuBookIcon />
         </Box>
         <Box sx={styles.itemContainer}>
-            {newsData.map((item: NewsType) => (
-                <Link href={`/`} key={item.id} >
+            {blogsData.map((blog: BlogType) => (
+                <Link href={`/`} key={blog.uid} >
                     <Box sx={styles.itemBox}>
-                        <img alt='' src={imgUrl} width='300px' height='200px' style={{ borderRadius: '4px' }} />
+                        <img alt='' src={DummyData.imageUrl} width='300px' height='200px' style={{ borderRadius: '4px' }} />
                         <Box sx={styles.explanationBox}>
                             <Box sx={styles.textBox}>
-                                <Typography sx={styles.contentTitle}>{item.title}</Typography>
-                                <Typography sx={styles.contentText}>{item.content}</Typography>
+                                <Typography sx={styles.contentTitle}>{blog.title}</Typography>
+                                <Typography sx={styles.contentText}>{blog.content}</Typography>
                             </Box>
-                            <Typography sx={styles.contentDate}>{formatDate(item.updatedAt)}</Typography>
+                            <Typography sx={styles.contentDate}>{formatDate(blog.updatedAt)}</Typography>
                         </Box>
                     </Box>
                     <Divider variant='middle' sx={{ marginTop: 2 }} />
@@ -37,7 +37,7 @@ export const NewsList = React.memo(({
     </Box>);
 });
 
-NewsList.displayName = 'NewsList';
+BlogBlock.displayName = 'BlogBlock';
 
 const styles: { [key: string]: SxProps<Theme> } = {
     container: {

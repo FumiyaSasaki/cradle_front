@@ -1,23 +1,24 @@
 import { Box } from "@mui/material";
-import { Header } from "./components/Header";
-import { TopImage } from "./components/TopImage";
-import { PropertyListFetch } from "./components/PropertyListFetch";
-import { NewsFetch } from "./components/NewsFetch";
-import { Inquiry } from "./components/Inquiry";
-import { Footer } from "./components/Footer";
+import { Header } from "./components/common/Header";
+import { TopImageBlock } from "./components/client/home/TopImageBlock";
+import { BlogFetch } from "./components/server/BlogBlockFetch";
+import { InquiryBlock } from "./components/client/home/InquiryBlock";
+import { Footer } from "./components/common/Footer";
+import { PropertyBlockFetch } from "./components/server/PropertyBlockFetch";
 
 const Home = () => {
+  console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
   return (<>
     <Header />
-    <TopImage />
+    <TopImageBlock />
     <Box mt={10}>
-      <PropertyListFetch />
+      <PropertyBlockFetch />
     </Box>
     <Box mt={10}>
-      <NewsFetch />
+      <BlogFetch />
     </Box>
     <Box>
-      <Inquiry />
+      <InquiryBlock />
     </Box>
     <Box mt={10}>
       <Footer />

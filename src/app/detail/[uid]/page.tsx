@@ -1,10 +1,10 @@
-import { Property } from '@/app/store/property';
-import { getAlProperties } from '@/app/core/api';
-import { DetailPage } from '@/app/components/DetailPage';
+import { PropertyType } from '@/app/store/property';
+import { getAllProperties } from '@/app/core/api';
+import { DetailPage } from '@/app/components/client/detail/DetailPage';
 
 export const generateStaticParams = async () => {
-  const propertiesData: Property[] = await getAlProperties();
-  return propertiesData.map((property: Property) => ({
+  const propertiesData: PropertyType[] = await getAllProperties();
+  return propertiesData.map((property: PropertyType) => ({
     uid: property.uid,
   }));
 };

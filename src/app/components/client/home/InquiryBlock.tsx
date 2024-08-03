@@ -3,9 +3,8 @@ import { Box, Button, Divider, SxProps, TextField, Theme, Typography } from '@mu
 import React from 'react';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import SendIcon from '@mui/icons-material/Send';
-const imgUrl = 'http://fs561381.xsrv.jp/img/test.png';
 
-export const Inquiry = React.memo(() => {
+export const InquiryBlock = React.memo(() => {
     return (<Box sx={styles.container}>
         <Box sx={styles.titleBox}>
             <Typography sx={styles.title}>CONTACT</Typography>
@@ -54,7 +53,7 @@ export const Inquiry = React.memo(() => {
     </Box>);
 });
 
-Inquiry.displayName = 'Inquiry';
+InquiryBlock.displayName = 'InquiryBlock';
 
 const styles: { [key: string]: SxProps<Theme> } = {
     container: {

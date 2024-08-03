@@ -1,6 +1,6 @@
-export const fetchApi = async (path: string, body?: string) => {
+const fetchApi = async (path: string, body?: string) => {
     try {
-        const url: string = `http://localhost:3001/property/${path}`;
+        const url: string = process.env.NEXT_PUBLIC_API_BASE_URL + path;
         const response: Response = await fetch(url, {
             method: 'POST',
             // cache: 'no-cache',
@@ -12,13 +12,15 @@ export const fetchApi = async (path: string, body?: string) => {
         return response.json();
     } catch (error) {
         console.log(error);
-        throw new Error('FoodAPI failed.');
+        throw new Error('failed.');
     }
 };
 
+const propertyUrl = 'property';
+
 export const getPropertyByUid = async (uid: string) => {
     const body: string = JSON.stringify({ uid });
-    return await fetchApi('getpropertybyuid', body);
+    return await fetchApi(propertyUrl + '/getpropertybyuid', body);
 };
 
-export const getAlProperties = async () => await fetchApi('getallproperties');
+export const getAllProperties = async () => await fetchApi(propertyUrl + '/getallproperties');

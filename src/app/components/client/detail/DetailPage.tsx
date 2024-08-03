@@ -1,12 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Property, usePropertyStore } from '../store/property';
-import { getPropertyByUid } from '../core/api';
+import { PropertyType, usePropertyStore } from '../../../store/property';
+import { getPropertyByUid } from '../../../core/api';
 import { Box, Typography } from '@mui/material';
 import Link from 'next/link';
 
 export const DetailPage = React.memo(({ uid }: { uid: string }) => {
-  const [property, setProperty] = useState<Property>(usePropertyStore().propertiesState[uid]);
+  const [property, setProperty] = useState<PropertyType>(usePropertyStore().propertyState[uid]);
 
   useEffect(() => {
     if (!property) {
