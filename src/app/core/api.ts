@@ -1,13 +1,13 @@
-export const fetchApi = async () => {
+export const fetchApi = async (path: string, body?: string) => {
     try {
-        const url: string = 'http://localhost:3001/property/getmenubyuid';
-        const response = await fetch(url, {
+        const url: string = `http://localhost:3001/property/${path}`;
+        const response: Response = await fetch(url, {
             method: 'POST',
             // cache: 'no-cache',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ uid: '123456789' }),
+            body,
         });
         return response.json();
     } catch (error) {
@@ -15,3 +15,10 @@ export const fetchApi = async () => {
         throw new Error('FoodAPI failed.');
     }
 };
+
+export const getPropertyByUid = async (uid: string) => {
+    const body: string = JSON.stringify({ uid });
+    return await fetchApi('getpropertybyuid', body);
+};
+
+export const getAlProperties = async () => await fetchApi('getallproperties');

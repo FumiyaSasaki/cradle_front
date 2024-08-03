@@ -1,30 +1,36 @@
 'use client';
-import { Box, SxProps, Theme, Typography } from "@mui/material";
+import { Box, SxProps, Theme, Typography } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import React from "react";
-import Link from "next/link";
-import { Property } from "../store/property";
-const imgUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAiCLzHgA2Tq6y69FOlY12A4bzdiO0rMq02g&s';
+import React, { useCallback, useEffect } from 'react';
+import Link from 'next/link';
+import { Property, usePropertyStore } from '../store/property';
+const imgUrl = 'http://fs561381.xsrv.jp/img/test.png';
 
 export const PropertyList = React.memo(({
-    propertyData
+    propertiesData
 }: {
-    propertyData: Property
+    propertiesData: Property[];
 }) => {
+    const setProperty = useCallback(usePropertyStore((state) => state.setProperties), []);
+
+    useEffect(() => {
+        setProperty(propertiesData);
+    }, []);
+
     return (<Box sx={styles.container}>
         <Typography sx={styles.title}>物件一覧</Typography>
         <Box sx={styles.itemContainer}>
-            {[propertyData].map((item: Property) => (
+            {propertiesData.map((item: Property) => (
                 <Box sx={styles.itemBox} key={item.id}>
-                    <Link href={`/detail?=${item.id}`}>
+                    <Link href={`/detail/${item.uid}`}>
                         <Box sx={styles.icon} bgcolor={item.isVacancy ? 'yellow' : 'white'}>
                             <span>{item.isVacancy ? '募集中' : '満室'}</span>
                         </Box>
                         <img alt='' src={imgUrl} width='100%' height='auto' />
                         <Box sx={styles.explanationBox}>
                             <Box sx={styles.textBox}>
-                                <Typography sx={styles.name}>{item.id}</Typography>
-                                <Typography>{item.prefecture}</Typography>
+                                <Typography sx={styles.name}>{item.name}</Typography>
+                                <Typography>{item.prefecture} / {item.city}</Typography>
                             </Box>
                             <ArrowCircleRightIcon sx={styles.arrowIcon} />
                         </Box>
