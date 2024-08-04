@@ -1,0 +1,15 @@
+/* 地図を画面全体に表示 */
+.leaflet-container {
+  width: 100%;
+  height: 50vh;
+}
+
+/* 通常カーソル */
+.leaflet-grab {
+  cursor: auto;
+}
+
+.popup {
+  font-family: serif;
+  font-weight: bold;
+}
