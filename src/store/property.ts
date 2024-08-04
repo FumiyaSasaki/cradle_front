@@ -17,6 +17,8 @@ export type PropertyType = {
     occupancyArea: number;
     deposit: number;
     keyMoney: number;
+    latitude: number;
+    longitude: number;
     isVacancy: boolean;
 };
 

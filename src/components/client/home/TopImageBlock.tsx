@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 export const TopImageBlock = React.memo(() => {
-    const topImages = ['home/topImageDummy.png', 'home/topImageDummy.png'];
+    const topImages = ['/home/topImageDummy.png'];
     return (
         <Swiper slidesPerView={1}
             loop={true}

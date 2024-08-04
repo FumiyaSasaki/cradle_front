@@ -41,7 +41,6 @@ export const InquiryBlock = React.memo(() => {
                 />
             </Box>
             <Divider variant='middle' />
-
             <Box sx={styles.itemBox}>
                 <Typography sx={styles.required}>内容</Typography>
                 <TextField required fullWidth
