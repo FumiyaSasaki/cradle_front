@@ -7,7 +7,7 @@ export const Header = React.memo(({ isBack }: { isBack?: boolean }) => {
     return (
         <AppBar sx={styles.appBar}>
             <Toolbar sx={styles.toolbar}>
-                <Typography sx={styles.title}>クレイドル</Typography>
+                <Typography sx={styles.title}>クレイドルTEST</Typography>
                 <IconButton>{isBack ? <Link href={'/'}>HOME</Link> : <MenuIcon />}</IconButton>
             </Toolbar>
         </AppBar>
