@@ -1,25 +1,27 @@
 'use client';
-import { Box, Divider, SxProps, Theme, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Button, Divider, SxProps, Theme, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { BlogType } from '@/store/blog';
 import { formatDate } from '@/helper/format';
 import { DummyData } from '@/tool/dummyData';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const BlogBlock = React.memo(({
     blogsData
 }: {
     blogsData: BlogType[];
 }) => {
+    const [count, setCount] = useState<number>(0);
     return (<Box sx={styles.container}>
         <Box sx={styles.titleBox}>
             <Typography sx={styles.title}>BLOG</Typography>
             <MenuBookIcon />
         </Box>
         <Box sx={styles.itemContainer}>
-            {blogsData.map((blog: BlogType) => (
-                <Link href={`/`} key={blog.uid} >
+            {blogsData.slice(0, count + 3).map((blog: BlogType) => (
+                <Link href={`/blog/${blog.uid}`} key={blog.uid} >
                     <Box sx={styles.itemBox}>
                         <img alt='' src={DummyData.imageUrl} width='300px' height='200px' style={{ borderRadius: '4px' }} />
                         <Box sx={styles.explanationBox}>
@@ -34,6 +36,10 @@ export const BlogBlock = React.memo(({
                 </Link>
             ))}
         </Box>
+        {blogsData.length > count + 3 &&
+            <Button sx={styles.button} onClick={() => setCount(prev => prev + 3)}
+                endIcon={<ExpandMoreIcon />}>もっと見る</Button>
+        }
     </Box>);
 });
 
@@ -101,5 +107,12 @@ const styles: { [key: string]: SxProps<Theme> } = {
         padding: '4px',
         width: '10%',
         textAlign: 'center'
+    },
+    button: {
+        marginTop: 2,
+        borderBottom: 1,
+        borderRadius: 0,
+        color: 'gray',
+        borderColor: 'gray'
     }
 };

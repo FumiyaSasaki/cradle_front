@@ -9,8 +9,8 @@ export const generateStaticParams = async () => {
   }));
 };
 
-const Page = ({ params }: { params: { uid: string } }) => {
+const Detail = ({ params }: { params: { uid: string } }) => {
   return <DetailPage uid={params.uid} />
 };
 
-export default Page;
+export default Detail;

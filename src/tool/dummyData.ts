@@ -4,8 +4,10 @@ export namespace DummyData {
     export const imageUrl = 'http://fs561381.xsrv.jp/img/test.png';
 
     export const blogData: BlogType[] = [
-        { uid: 'news123456789', title: 'title1', content: 'content1content1content1content1content1content1content1content1content1', imageUrls: [imageUrl], updatedAt: new Date() },
-        { uid: 'news223456789', title: 'title1', content: 'content1', imageUrls: [imageUrl], updatedAt: new Date() },
+        { uid: 'news123456789', title: 'title1', content: 'content1content1content1content1content1content1content1content1content1', imageUrls: [imageUrl,imageUrl], updatedAt: new Date() },
+        { uid: 'news223456789', title: 'title2', content: 'content2', imageUrls: [imageUrl], updatedAt: new Date() },
+        { uid: 'news323456789', title: 'title3', content: 'content3', imageUrls: [imageUrl], updatedAt: new Date() },
+        { uid: 'news423456789', title: 'title4', content: 'content4', imageUrls: [imageUrl], updatedAt: new Date() },
     ];
 
     export const propatyImages = [
