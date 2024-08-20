@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
-import { PropertyType } from '@/store/property';
+import { BuildingType } from '@/store/building';
 
 export const DetailItemBlock = React.memo(({
-  property
+  building
 }: {
-  property: PropertyType
+  building: BuildingType
 }) => {
 
   const ItemBox = React.memo(({
@@ -20,22 +20,22 @@ export const DetailItemBlock = React.memo(({
 
   return (
     <Box sx={styles.container}>
-      <ItemBox label='所在地' content={property.prefecture + property.city + property.town + property.address + property.building} fullwidth />
+      <ItemBox label='所在地' content={building.prefecture + building.city + building.town + building.address + building.building} fullwidth />
       <Box sx={styles.unitItemBox}>
-        <ItemBox label='家賃' content={property.rent + '万円'} />
-        <ItemBox label='築年数' content={property.age + '年'} />
+        <ItemBox label='家賃' content={building.rent + '万円'} />
+        <ItemBox label='築年数' content={building.age + '年'} />
       </Box>
       <Box sx={styles.unitItemBox}>
-        <ItemBox label='礼金' content={property.keyMoney + '万円'} />
-        <ItemBox label='敷金' content={property.deposit + '万円'} />
+        <ItemBox label='礼金' content={building.keyMoney + '万円'} />
+        <ItemBox label='敷金' content={building.deposit + '万円'} />
       </Box>
       <Box sx={styles.unitItemBox}>
-        <ItemBox label='向き' content={property.direction + '向き'} />
-        <ItemBox label='駅から' content={property.distanceMinutes + '分'} />
+        <ItemBox label='向き' content={building.direction + '向き'} />
+        <ItemBox label='駅から' content={building.distanceMinutes + '分'} />
       </Box>
       <Box sx={styles.unitItemBox}>
-        <ItemBox label='間取り' content={property.floorPlan} />
-        <ItemBox label='専有面積' content={property.occupancyArea + '㎠'} />
+        <ItemBox label='間取り' content={building.floorPlan} />
+        <ItemBox label='専有面積' content={building.occupancyArea + '㎠'} />
       </Box>
     </Box>
   )

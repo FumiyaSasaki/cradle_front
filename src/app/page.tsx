@@ -1,19 +1,22 @@
 import { Box } from '@mui/material';
 import { Header } from '../components/common/Header';
 import { TopImageBlock } from '../components/client/home/TopImageBlock';
-import { BlogFetch } from '../components/server/BlogBlockFetch';
 import { InquiryBlock } from '../components/common/InquiryBlock';
-import { PropertyBlockFetch } from '../components/server/PropertyBlockFetch';
+import { TopDataType } from '@/types/Common.type';
+import { getAllTopData } from '@/core/api';
+import { BuildingBlock } from '@/components/client/home/BuildingBlock';
+import { BlogBlock } from '@/components/client/home/BlogBlock';
 
-const Home = () => {
+const Home = async () => {
+  const topData: TopDataType = await getAllTopData();
   return (<>
     <Header />
     <TopImageBlock />
     <Box mt={10}>
-      <PropertyBlockFetch />
+      <BuildingBlock buildingData={topData.building} />
     </Box>
     <Box mt={10}>
-      <BlogFetch />
+      <BlogBlock blogsData={topData.blog} />
     </Box>
     <Box>
       <InquiryBlock />

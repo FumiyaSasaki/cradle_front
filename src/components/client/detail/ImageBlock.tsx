@@ -7,9 +7,13 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
-import { DummyData } from '@/tool/dummyData';
+import { ImageContentType } from '@/types/Common.type';
 
-export const ImageBlock = React.memo(() => {
+export const ImageBlock = React.memo(({
+    imageContent
+}: {
+    imageContent: ImageContentType[]
+}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
     const [title, setTitle] = useState<string>('');
     const [numberSheet, setNumberSheet] = useState<number>(1);
@@ -27,7 +31,7 @@ export const ImageBlock = React.memo(() => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className='mySwiper_top'
             >
-                {DummyData.propatyImages2.map((image, index) => (
+                {imageContent.map((image, index) => (
                     <SwiperSlide key={image.url} onClick={() => setMiddleBoxText(image.title, index)}>
                         <img src={image.url} className='top_image' />
                     </SwiperSlide>
@@ -35,7 +39,7 @@ export const ImageBlock = React.memo(() => {
             </Swiper>
             <Box sx={styles.middleBox}>
                 <Typography sx={styles.middleBoxText}>{title}</Typography>
-                <Typography sx={styles.middleBoxText}>{numberSheet}/{DummyData.propatyImages2.length}</Typography>
+                <Typography sx={styles.middleBoxText}>{numberSheet}/{imageContent.length}</Typography>
             </Box>
             <Swiper
                 onSwiper={setThumbsSwiper}
@@ -46,7 +50,7 @@ export const ImageBlock = React.memo(() => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className='mySwiper_under'
             >
-                {DummyData.propatyImages2.map((image, index) => (
+                {imageContent.map((image, index) => (
                     <SwiperSlide key={image.url} onClick={() => setMiddleBoxText(image.title, index)} className='swipers_slide'>
                         <img src={image.url} className='under_image' />
                     </SwiperSlide>

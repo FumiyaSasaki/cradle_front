@@ -1,10 +1,11 @@
+import { ImageContentType } from '@/types/Common.type';
 import { create } from 'zustand';
 
 export type BlogType = {
     uid: string;
     title: string;
     content: string;
-    imageUrls: string[];
+    imageContents: ImageContentType[];
     updatedAt: Date;
 };
 

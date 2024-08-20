@@ -1,9 +1,9 @@
-import { DummyData } from '@/tool/dummyData';
 import { BlogType } from '@/store/blog';
 import { BlogPage } from '@/components/client/blog/BlogPage';
+import { getAllBlog } from '@/core/api';
 
 export const generateStaticParams = async () => {
-  const blogData: BlogType[] = DummyData.blogData;
+  const blogData: BlogType[] = await getAllBlog();
   return blogData.map((blog: BlogType) => ({
     uid: blog.uid,
   }));

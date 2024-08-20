@@ -4,7 +4,7 @@ import { Box, Divider, SxProps, Theme, Typography } from '@mui/material';
 import { Header } from '@/components/common/Header';
 import { InquiryBlock } from '@/components/common/InquiryBlock';
 import { BlogType, useBlogStore } from '@/store/blog';
-import { DummyData } from '@/tool/dummyData';
+import { getBlogByUid } from '@/core/api';
 
 export const BlogPage = React.memo(({
     uid
@@ -15,9 +15,9 @@ export const BlogPage = React.memo(({
 
     useEffect(() => {
         if (!blog) {
-            setBlog(DummyData.blogData[0]);
+            getBlogByUid(uid).then(item => setBlog(item));
         };
-    }, []);
+      }, []);
 
     return <>
         <Header isBack />
@@ -26,7 +26,7 @@ export const BlogPage = React.memo(({
                 <Typography sx={styles.title}>{blog.title}</Typography>
             </Box>
             <Box sx={styles.itemContainer}>
-                {DummyData.propatyImages2.map(item => (
+                {blog.imageContents.map(item => (
                     <Box sx={styles.itemBox} key={item.title}>
                         <img alt='' src={item.url} width='100%' height='400px' />
                         <Typography sx={styles.itemTitle}>{item.title}</Typography>

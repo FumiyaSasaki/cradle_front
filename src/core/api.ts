@@ -16,11 +16,19 @@ const fetchApi = async (path: string, body?: string) => {
     }
 };
 
-const propertyUrl = 'property';
+const BUILDING = 'building';
+const COMPOSITE = 'composite';
+const BLOG = 'blog';
 
-export const getPropertyByUid = async (uid: string) => {
+export const getBuildingByUid = async (uid: string) => {
     const body: string = JSON.stringify({ uid });
-    return await fetchApi(propertyUrl + '/getpropertybyuid', body);
+    return await fetchApi(BUILDING + '/getbuildingbyuid', body);
 };
 
-export const getAllProperties = async () => await fetchApi(propertyUrl + '/getallproperties');
+export const getAllBuilding = async () => await fetchApi(BUILDING + '/getallbuilding');
+export const getAllTopData = async () => await fetchApi(COMPOSITE + '/getalltopdata');
+export const getAllBlog = async () => await fetchApi(BLOG + '/getallblog');
+export const getBlogByUid = async (uid: string) => {
+    const body: string = JSON.stringify({ uid });
+    return await fetchApi(BLOG + '/getblogbyuid', body);
+};

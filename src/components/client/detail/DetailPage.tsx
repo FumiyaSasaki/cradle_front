@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
-import { PropertyType, usePropertyStore } from '@/store/property';
-import { getPropertyByUid } from '@/core/api';
+import { BuildingType, useBuildingStore } from '@/store/building';
+import { getBuildingByUid } from '@/core/api';
 import { ImageBlock } from './ImageBlock';
 import { MapBlock } from './MapBlock';
 import { DetailItemBlock } from './DetailItemBlock';
@@ -14,26 +14,26 @@ export const DetailPage = React.memo(({
 }: {
   uid: string
 }) => {
-  const [property, setProperty] = useState<PropertyType>(usePropertyStore().propertyState[uid]);
+  const [building, setBuilding] = useState<BuildingType>(useBuildingStore().buildingState[uid]);
 
   useEffect(() => {
-    if (!property) {
-      getPropertyByUid(uid).then(item => setProperty(item));
+    if (!building) {
+      getBuildingByUid(uid).then(item => setBuilding(item));
     };
   }, []);
 
   return <>
     <Header isBack />
-    {property && (<Box sx={styles.container}>
+    {building && (<Box sx={styles.container}>
       <Box sx={styles.titleBox}>
-        <Typography sx={styles.title}>{property.name}</Typography>
-        <Typography sx={styles.title}>家賃・{property.rent}万円</Typography>
+        <Typography sx={styles.title}>{building.name}</Typography>
+        <Typography sx={styles.title}>家賃・{building.rent}万円</Typography>
       </Box>
-      <ImageBlock />
-      <DetailItemBlock property={property} />
-      <MapBlock name={property.name}
-        latitude={property.latitude ? property.latitude : 34.70250197358303}
-        longitude={property.longitude ? property.longitude : 135.49595618224777} />
+      <ImageBlock imageContent={building.imageContents} />
+      <DetailItemBlock building={building} />
+      <MapBlock name={building.name}
+        latitude={building.latitude}
+        longitude={building.longitude} />
     </Box>)}
     <InquiryBlock />
   </>

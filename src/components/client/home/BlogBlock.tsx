@@ -1,11 +1,10 @@
 'use client';
 import { Box, Button, Divider, SxProps, Theme, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import { BlogType } from '@/store/blog';
+import { BlogType, useBlogStore } from '@/store/blog';
 import { formatDate } from '@/helper/format';
-import { DummyData } from '@/tool/dummyData';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const BlogBlock = React.memo(({
@@ -13,7 +12,13 @@ export const BlogBlock = React.memo(({
 }: {
     blogsData: BlogType[];
 }) => {
+    const setBlog = useCallback(useBlogStore((state) => state.setBlogState), []);
     const [count, setCount] = useState<number>(0);
+
+    useEffect(() => {
+        setBlog(blogsData);
+    }, []);
+    
     return (<Box sx={styles.container}>
         <Box sx={styles.titleBox}>
             <Typography sx={styles.title}>BLOG</Typography>
@@ -23,13 +28,13 @@ export const BlogBlock = React.memo(({
             {blogsData.slice(0, count + 3).map((blog: BlogType) => (
                 <Link href={`/blog/${blog.uid}`} key={blog.uid} >
                     <Box sx={styles.itemBox}>
-                        <img alt='' src={DummyData.imageUrl} width='300px' height='200px' style={{ borderRadius: '4px' }} />
+                        <img alt='' src={blog.imageContents[0].url} width='300px' height='200px' style={{ borderRadius: '4px' }} />
                         <Box sx={styles.explanationBox}>
                             <Box sx={styles.textBox}>
                                 <Typography sx={styles.contentTitle}>{blog.title}</Typography>
                                 <Typography sx={styles.contentText}>{blog.content}</Typography>
                             </Box>
-                            <Typography sx={styles.contentDate}>{formatDate(blog.updatedAt)}</Typography>
+                            <Typography sx={styles.contentDate}>{formatDate(new Date(blog.updatedAt))}</Typography>
                         </Box>
                     </Box>
                     <Divider variant='middle' sx={{ marginTop: 2 }} />

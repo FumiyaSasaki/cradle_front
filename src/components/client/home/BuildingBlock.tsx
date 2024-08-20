@@ -3,30 +3,29 @@ import { Box, SxProps, Theme, Typography } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import { PropertyType, usePropertyStore } from '@/store/property';
-import { DummyData } from '@/tool/dummyData';
+import { BuildingType, useBuildingStore } from '@/store/building';
 
-export const PropertyBlock = React.memo(({
-    propertiesData
+export const BuildingBlock = React.memo(({
+    buildingData
 }: {
-    propertiesData: PropertyType[];
+    buildingData: BuildingType[];
 }) => {
-    const setProperty = useCallback(usePropertyStore((state) => state.setPropertyState), []);
+    const setBuilding = useCallback(useBuildingStore((state) => state.setBuildingState), []);
 
     useEffect(() => {
-        setProperty(propertiesData);
+        setBuilding(buildingData);
     }, []);
 
     return (<Box sx={styles.container}>
         <Typography sx={styles.title}>物件一覧</Typography>
         <Box sx={styles.itemContainer}>
-            {propertiesData.map((item: PropertyType) => (
+            {buildingData.map((item: BuildingType) => (
                 <Box sx={styles.itemBox} key={item.uid}>
                     <Link href={`/detail/${item.uid}`}>
                         <Box sx={styles.icon} bgcolor={item.isVacancy ? 'yellow' : 'white'}>
                             <span>{item.isVacancy ? '募集中' : '満室'}</span>
                         </Box>
-                        <img alt='' src={DummyData.imageUrl} width='100%' height='auto' />
+                        <img alt='' src={item.imageContents[0].url} width='100%' height='auto' />
                         <Box sx={styles.explanationBox}>
                             <Box sx={styles.textBox}>
                                 <Typography sx={styles.name}>{item.name}</Typography>
@@ -41,7 +40,7 @@ export const PropertyBlock = React.memo(({
     </Box>);
 });
 
-PropertyBlock.displayName = 'PropertyBlock';
+BuildingBlock.displayName = 'BuildingBlock';
 
 const styles: { [key: string]: SxProps<Theme> } = {
     container: {
