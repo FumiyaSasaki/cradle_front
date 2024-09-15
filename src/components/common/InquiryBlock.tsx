@@ -1,10 +1,44 @@
 'use client';
 import { Box, Button, Divider, SxProps, TextField, Theme, Typography } from '@mui/material';
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import SendIcon from '@mui/icons-material/Send';
+import { init, send } from '@emailjs/browser';
+import { Wors } from '@/helper/worsList';
+import { ValidationTextField } from '../convenience/ValidationTextField';
+import { emailPattern, excludeHalfKanaSymbols, phonePattern } from '@/helper/format';
 
+
+const key = process.env.NEXT_PUBLIC_EJS_INIT_KEY;
+const serviceID = process.env.NEXT_PUBLIC_EJS_SERVICE_ID;
+const templateID = process.env.NEXT_PUBLIC_EJS_TEMPLATE_ID;
 export const InquiryBlock = React.memo(() => {
+
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+    const onSubmit = useCallback(async (e: { preventDefault: () => void; }) => {
+        e.preventDefault()
+        if (key && serviceID && templateID && name && title && email && message) {
+            init(key)
+            const params = { name, title, email, message, phoneNumber };
+            try {
+                await send(serviceID, templateID, params).then(() =>
+                    alert(Wors.Alert.thanksInquiry));
+            } catch (error) {
+                alert(Wors.Alert.failedInquiry);
+            }
+        }
+    }, [isDisabled, name, title, email, message, phoneNumber]);
+
+    useEffect(() => {
+        setIsDisabled(!name || !email || !title || !message);
+    }, [name, email, title, message]);
+
     return (<Box sx={styles.container}>
         <Box sx={styles.titleBox}>
             <Typography sx={styles.title}>CONTACT</Typography>
@@ -13,31 +47,39 @@ export const InquiryBlock = React.memo(() => {
         <Box sx={styles.itemContainer}>
             <Box sx={styles.itemBox}>
                 <Typography sx={styles.required}>お名前</Typography>
-                <TextField required fullWidth
-                    InputLabelProps={{ shrink: true }}
+                <ValidationTextField
+                    value={name}
+                    setValue={setName}
                 />
             </Box>
             <Divider variant='middle' />
             <Box sx={styles.itemBox}>
                 <Typography width={'10%'} >電話番号</Typography>
-                <TextField required fullWidth
-                    InputLabelProps={{ shrink: true }}
+                <ValidationTextField
+                    value={phoneNumber}
+                    setValue={setPhoneNumber}
+                    required={false}
+                // pattern={phonePattern}
                 />
             </Box>
             <Divider variant='middle' />
 
             <Box sx={styles.itemBox}>
-                <Typography sx={styles.required}>email</Typography>
-                <TextField required fullWidth
-                    InputLabelProps={{ shrink: true }}
+                <Typography sx={styles.required}>Email</Typography>
+                <ValidationTextField
+                    value={email}
+                    setValue={setEmail}
+                    pattern={emailPattern}
                 />
             </Box>
             <Divider variant='middle' />
 
             <Box sx={styles.itemBox}>
                 <Typography sx={styles.required}>件名</Typography>
-                <TextField required fullWidth
-                    InputLabelProps={{ shrink: true }}
+                <ValidationTextField
+                    value={title}
+                    setValue={setTitle}
+                    pattern={excludeHalfKanaSymbols}
                 />
             </Box>
             <Divider variant='middle' />
@@ -45,10 +87,12 @@ export const InquiryBlock = React.memo(() => {
                 <Typography sx={styles.required}>内容</Typography>
                 <TextField required fullWidth
                     InputLabelProps={{ shrink: true }} multiline rows={10}
+                    onChange={(e) => setMessage(e.target.value)}
                 />
             </Box>
         </Box>
-        <Button variant='contained' endIcon={<SendIcon />} sx={styles.button} >送信</Button>
+        <Button variant='contained' endIcon={<SendIcon />} sx={styles.button}
+            onClick={onSubmit} disabled={isDisabled}>送信</Button>
     </Box>);
 });
 
@@ -115,6 +159,6 @@ const styles: { [key: string]: SxProps<Theme> } = {
         width: '20%',
         paddingY: 1,
         fontSize: '18px',
-        marginTop:2
+        marginTop: 2
     }
 };
