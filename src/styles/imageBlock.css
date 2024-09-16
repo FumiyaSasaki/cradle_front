@@ -23,7 +23,7 @@
 
 .mySwiper_under .swiper-slide-thumb-active {
   opacity: 1;
-  border: 2px solid rgb(62, 206, 60);
+  border: 2px solid #2e8b57;
 }
 
 .swiper-slide img {
@@ -41,4 +41,13 @@
   width: 80%;
   padding-top: 10%;
   padding-bottom: 10%;
+}
+
+.swiper-button-prev::after {
+  color: #2e8b57;
+  font-size: 20px;
+}
+
+.swiper-button-next::after {
+  color: #2e8b57;
 }

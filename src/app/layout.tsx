@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 import { Footer } from '@/components/common/Footer';
 import { Box } from '@mui/material';
+import { InquiryBlock } from '@/components/common/InquiryBlock';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,13 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='ja' >
       <body className={inter.className}>
-        <Box mt={'6%'}>
+        <Box mt={'3%'}>
           {children}
+          <InquiryBlock />
         </Box>
         <Box mt={10}>
-        <Footer />
+          <Footer />
         </Box>
       </body>
     </html>

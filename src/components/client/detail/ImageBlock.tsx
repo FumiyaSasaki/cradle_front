@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import '../../../styles/imageBlock.css';
 import 'swiper/css';
@@ -15,13 +15,19 @@ export const ImageBlock = React.memo(({
     imageContent: ImageContentType[]
 }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
-    const [title, setTitle] = useState<string>('');
+    const [title, setTitle] = useState<string>(imageContent[0].title);
     const [numberSheet, setNumberSheet] = useState<number>(1);
+    const [activeIndex, setActiveIndex] = useState(0);
 
-    const setMiddleBoxText = useCallback((title: string, index: number) => {
-        setTitle(title);
-        setNumberSheet(index + 1);
+    const getActiveIndex = useCallback((swiper: { activeIndex: React.SetStateAction<number>; }) => {
+        setActiveIndex(swiper.activeIndex);
     }, []);
+
+    useEffect(() => {
+        setTitle(imageContent[activeIndex].title + activeIndex);
+        setNumberSheet(activeIndex + 1);
+    }, [activeIndex]);
+
     return (
         <Box sx={styles.container}>
             <Swiper
@@ -30,9 +36,10 @@ export const ImageBlock = React.memo(({
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className='mySwiper_top'
+                onSlideChangeTransitionEnd={getActiveIndex}
             >
                 {imageContent.map((image, index) => (
-                    <SwiperSlide key={image.url} onClick={() => setMiddleBoxText(image.title, index)}>
+                    <SwiperSlide key={image.url}>
                         <img src={image.url} className='top_image' />
                     </SwiperSlide>
                 ))}
@@ -51,7 +58,7 @@ export const ImageBlock = React.memo(({
                 className='mySwiper_under'
             >
                 {imageContent.map((image, index) => (
-                    <SwiperSlide key={image.url} onClick={() => setMiddleBoxText(image.title, index)} className='swipers_slide'>
+                    <SwiperSlide key={image.url} className='swipers_slide'>
                         <img src={image.url} className='under_image' />
                     </SwiperSlide>
                 ))}
@@ -64,7 +71,7 @@ ImageBlock.displayName = 'ImageBlock';
 
 const styles: { [key: string]: SxProps<Theme> } = {
     container: {
-        width: '50%',
+        width: { xs: '90%', lg: '50%' },
     },
     middleBox: {
         backgroundColor: 'gray',

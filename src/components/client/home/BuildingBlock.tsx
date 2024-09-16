@@ -4,6 +4,8 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { BuildingType, useBuildingStore } from '@/store/building';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import { TitleBox } from '@/components/convenience/TitleBox';
 
 export const BuildingBlock = React.memo(({
     buildingData
@@ -17,7 +19,10 @@ export const BuildingBlock = React.memo(({
     }, []);
 
     return (<Box sx={styles.container}>
-        <Typography sx={styles.title}>物件一覧</Typography>
+        <TitleBox
+            title={'物件一覧'}
+            Icon={ApartmentIcon}
+        />
         <Box sx={styles.itemContainer}>
             {buildingData.map((item: BuildingType) => (
                 <Box sx={styles.itemBox} key={item.uid}>
@@ -25,7 +30,8 @@ export const BuildingBlock = React.memo(({
                         <Box sx={styles.icon} bgcolor={item.isVacancy ? 'yellow' : 'white'}>
                             <span>{item.isVacancy ? '募集中' : '満室'}</span>
                         </Box>
-                        <img alt='' src={item.imageContents[0].url} width='100%' height='auto' />
+                        <img alt='' src={item.imageContents[0].url} width='100%' height='auto'
+                            style={{ borderTopLeftRadius: '6px', borderTopRightRadius: '6px' }} />
                         <Box sx={styles.explanationBox}>
                             <Box sx={styles.textBox}>
                                 <Typography sx={styles.name}>{item.name}</Typography>
@@ -49,26 +55,26 @@ const styles: { [key: string]: SxProps<Theme> } = {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    title: {
-        fontSize: '22px',
-        color: 'white',
-        paddingY: 2,
-        backgroundColor: 'gray',
-        width: '100%',
-        textAlign: 'center',
-    },
     itemContainer: {
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: { xs: 'center', md: 'flex-start' },
         flexWrap: 'wrap',
         marginTop: 8,
         width: '80%',
-        gap: 4
+        gap: 7
     },
     itemBox: {
         boxShadow: '2px 2px 4px gray',
-        width: '30%',
-        position: 'relative'
+        width: { xs: '97%', md: '28%' },
+        position: 'relative',
+        marginBottom: 3,
+        borderRadius: '6px',
+        ':hover': {
+            boxShadow: '0px 0px 15px 2px rgba(0, 0, 0, 0.2)',
+            transform: { xs: `scale(${0.9})`, md: `scale(${1.1})` },
+            transition: '.3s'
+        },
     },
     icon: {
         height: '70px',

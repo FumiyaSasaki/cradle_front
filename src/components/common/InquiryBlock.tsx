@@ -1,13 +1,13 @@
 'use client';
-import { Box, Button, Divider, SxProps, TextField, Theme, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Box, Button, Divider, SxProps, Theme, Typography } from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import SendIcon from '@mui/icons-material/Send';
 import { init, send } from '@emailjs/browser';
 import { Wors } from '@/helper/worsList';
 import { ValidationTextField } from '../convenience/ValidationTextField';
 import { emailPattern, excludeHalfKanaSymbols, phonePattern } from '@/helper/format';
-
+import { TitleBox } from '../convenience/TitleBox';
 
 const key = process.env.NEXT_PUBLIC_EJS_INIT_KEY;
 const serviceID = process.env.NEXT_PUBLIC_EJS_SERVICE_ID;
@@ -40,62 +40,48 @@ export const InquiryBlock = React.memo(() => {
     }, [name, email, title, message]);
 
     return (<Box sx={styles.container}>
-        <Box sx={styles.titleBox}>
-            <Typography sx={styles.title}>CONTACT</Typography>
-            <MailOutlineIcon />
-        </Box>
+        <TitleBox
+            title={'CONTACT'}
+            Icon={MailOutlineIcon}
+        />
         <Box sx={styles.itemContainer}>
-            <Box sx={styles.itemBox}>
-                <Typography sx={styles.required}>お名前</Typography>
-                <ValidationTextField
-                    value={name}
-                    setValue={setName}
-                />
-            </Box>
-            <Divider variant='middle' />
-            <Box sx={styles.itemBox}>
-                <Typography width={'10%'} >電話番号</Typography>
-                <ValidationTextField
-                    value={phoneNumber}
-                    setValue={setPhoneNumber}
-                    required={false}
-                // pattern={phonePattern}
-                />
-            </Box>
-            <Divider variant='middle' />
-
-            <Box sx={styles.itemBox}>
-                <Typography sx={styles.required}>Email</Typography>
-                <ValidationTextField
-                    value={email}
-                    setValue={setEmail}
-                    pattern={emailPattern}
-                />
-            </Box>
-            <Divider variant='middle' />
-
-            <Box sx={styles.itemBox}>
-                <Typography sx={styles.required}>件名</Typography>
-                <ValidationTextField
-                    value={title}
-                    setValue={setTitle}
-                    pattern={excludeHalfKanaSymbols}
-                />
-            </Box>
-            <Divider variant='middle' />
-            <Box sx={styles.itemBox}>
-                <Typography sx={styles.required}>内容</Typography>
-                <TextField required fullWidth
-                    InputLabelProps={{ shrink: true }} multiline rows={10}
-                    onChange={(e) => setMessage(e.target.value)}
-                />
-            </Box>
+            <TextFieldItem label={'お名前'} value={name} setValue={setName} />
+            <TextFieldItem label={'電話番号'} value={phoneNumber} setValue={setPhoneNumber} required={false} pattern={phonePattern} />
+            <TextFieldItem label={'Email'} value={email} setValue={setEmail} pattern={emailPattern} />
+            <TextFieldItem label={'件名'} value={title} setValue={setTitle} pattern={excludeHalfKanaSymbols} />
+            <TextFieldItem label={'内容'} value={message} setValue={setMessage} fullWidth multiline rows={10} />
+            <Button variant='contained' endIcon={<SendIcon />} sx={styles.button}
+                onClick={onSubmit} disabled={isDisabled}>送信</Button>
         </Box>
-        <Button variant='contained' endIcon={<SendIcon />} sx={styles.button}
-            onClick={onSubmit} disabled={isDisabled}>送信</Button>
     </Box>);
 });
 
+const TextFieldItem = React.memo(({
+    label, value, setValue,
+    required = true, pattern,
+    fullWidth, multiline, rows
+}: {
+    label: string; value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+    required?: boolean; pattern?: string;
+    fullWidth?: boolean; multiline?: boolean; rows?: number
+}) => {
+    return (<><Box sx={styles.itemBox}>
+        <Typography sx={required ? styles.required : styles.phoneLabel}>
+            {label}</Typography>
+        <ValidationTextField
+            value={value}
+            setValue={setValue}
+            required={required}
+            pattern={pattern}
+            fullWidth={fullWidth}
+            multiline={multiline}
+            rows={rows}
+        /></Box>
+        <Divider variant='middle' />
+    </>)
+});
+TextFieldItem.displayName = 'TextFieldItem';
 InquiryBlock.displayName = 'InquiryBlock';
 
 const styles: { [key: string]: SxProps<Theme> } = {
@@ -122,18 +108,18 @@ const styles: { [key: string]: SxProps<Theme> } = {
     itemContainer: {
         display: 'flex',
         flexDirection: 'column',
-        width: '50%',
+        width: { xs: '90%', lg: '70%', xl: '50%' },
         gap: 2
     },
     itemBox: {
         display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 5,
-        margin: 2
+        flexDirection: { xs: 'column', md: 'row' },
+        alignItems: { xs: 'flex-start', md: 'center' },
+        gap: { xs: 1, md: '50px' },
+        margin: { xs: 1, md: 2 }
     },
     required: {
-        width: '10%',
+        width: { xs: 'fit-content', md: '10%' },
         position: 'relative',
         '&:after': {
             content: '"必須"',
@@ -152,13 +138,17 @@ const styles: { [key: string]: SxProps<Theme> } = {
             position: 'absolute',
             top: '50%',
             transform: 'translateY(-50%)',
-            left: '80%'
+            left: '100%'
         }
     },
+    phoneLabel: {
+        width: { xs: 'fit-content', md: '10%' }
+    },
     button: {
-        width: '20%',
+        width: { xs: '80%', md: '20%' },
         paddingY: 1,
         fontSize: '18px',
-        marginTop: 2
+        marginTop: 2,
+        backgroundColor: '#2e8b57'
     }
 };

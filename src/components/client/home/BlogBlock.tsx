@@ -6,6 +6,8 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { BlogType, useBlogStore } from '@/store/blog';
 import { formatDate } from '@/helper/format';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { TitleBox } from '@/components/convenience/TitleBox';
+import { useWindowSize } from '@/hooks/useWindowSize';
 
 export const BlogBlock = React.memo(({
     blogsData
@@ -14,21 +16,30 @@ export const BlogBlock = React.memo(({
 }) => {
     const setBlog = useCallback(useBlogStore((state) => state.setBlogState), []);
     const [count, setCount] = useState<number>(0);
+    const [width, height] = useWindowSize();
+    const isMobile: boolean = width <= 900;
 
     useEffect(() => {
         setBlog(blogsData);
     }, []);
-    
+
+    const imageStyle: React.CSSProperties = {
+        borderRadius: '4px',
+        width: isMobile ? '100%' : '20%',
+        height: '180px',
+        objectFit: isMobile ? 'cover' : 'contain'
+    }
+
     return (<Box sx={styles.container}>
-        <Box sx={styles.titleBox}>
-            <Typography sx={styles.title}>BLOG</Typography>
-            <MenuBookIcon />
-        </Box>
+        <TitleBox
+            title={'BLOG'}
+            Icon={MenuBookIcon}
+        />
         <Box sx={styles.itemContainer}>
             {blogsData.slice(0, count + 3).map((blog: BlogType) => (
                 <Link href={`/blog/${blog.uid}`} key={blog.uid} >
                     <Box sx={styles.itemBox}>
-                        <img alt='' src={blog.imageContents[0].url} width='300px' height='200px' style={{ borderRadius: '4px' }} />
+                        <img alt='' src={blog.imageContents[0].url} style={imageStyle} />
                         <Box sx={styles.explanationBox}>
                             <Box sx={styles.textBox}>
                                 <Typography sx={styles.contentTitle}>{blog.title}</Typography>
@@ -59,21 +70,6 @@ const styles: { [key: string]: SxProps<Theme> } = {
         backgroundColor: 'whitesmoke',
         paddingBottom: 10
     },
-    titleBox: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 3,
-        borderBottom: 'solid',
-        borderWidth: '4px',
-        width: '8%',
-        marginY: 6
-    },
-    title: {
-        fontSize: '24px',
-        fontWeight: 'bold',
-    },
     itemContainer: {
         display: 'flex',
         flexDirection: 'column',
@@ -83,15 +79,16 @@ const styles: { [key: string]: SxProps<Theme> } = {
     },
     itemBox: {
         display: 'flex',
-        flexDirection: 'row',
-        gap: 5,
+        flexDirection: { xs: 'column', md: 'row' },
+        gap: { xs: 1, md: 5 },
         margin: 2
     },
     explanationBox: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        width: '100%'
+        width: '100%',
+        gap: 1
     },
     textBox: {
         display: 'flex',
@@ -103,14 +100,19 @@ const styles: { [key: string]: SxProps<Theme> } = {
         fontWeight: 'bold'
     },
     contentText: {
-        fontSize: '16px'
+        fontSize: '16px',
+        overflowWrap: 'anywhere',
+        overflow: 'hidden',
+        display: '-webkit-box',
+        WebkitBoxOrient: 'vertical',
+        ' -webkit-line-clamp': { xs: 3, md: 4 }
     },
     contentDate: {
         fontSize: '14px',
         backgroundColor: 'lightsteelblue',
         borderRadius: '4px',
         padding: '4px',
-        width: '10%',
+        width: 'fit-content',
         textAlign: 'center'
     },
     button: {

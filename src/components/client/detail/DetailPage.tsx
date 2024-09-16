@@ -35,7 +35,6 @@ export const DetailPage = React.memo(({
         latitude={building.latitude}
         longitude={building.longitude} />
     </Box>)}
-    <InquiryBlock />
   </>
 });
 
@@ -48,15 +47,15 @@ const styles: { [key: string]: SxProps<Theme> } = {
     justifyContent: 'center',
     alignItems: 'center',
     gap: 3,
-    marginY: 3
+    paddingTop: 5,
   },
   titleBox: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '50%',
+    width: { xs: '90%', lg: '50%' },
     boxShadow: '2px 2px 4px gray',
-    borderTop: 'solid green',
+    borderTop: 'solid #2e8b57',
     padding: 1
   },
   title: {

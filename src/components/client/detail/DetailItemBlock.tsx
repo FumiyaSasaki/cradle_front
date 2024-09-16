@@ -1,53 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { BuildingType } from '@/store/building';
+import { useWindowSize } from '@/hooks/useWindowSize';
 
 export const DetailItemBlock = React.memo(({
   building
 }: {
   building: BuildingType
 }) => {
-
-  const ItemBox = React.memo(({
-    label, content, fullwidth
-  }: {
-    label: string, content: string, fullwidth?: boolean
-  }) => <Box width={fullwidth ? '100%' : '50%'} sx={styles.itemBox}>
-      <Typography sx={styles.label}>{label}</Typography>
-      <Typography sx={styles.content}>{content}</Typography>
-    </Box>);
-  ItemBox.displayName = 'ItemBox'
+  const [address] = useState<string>(building.prefecture + building.city +
+    building.town + building.address + building.building);
 
   return (
     <Box sx={styles.container}>
-      <ItemBox label='所在地' content={building.prefecture + building.city + building.town + building.address + building.building} fullwidth />
-      <Box sx={styles.unitItemBox}>
-        <ItemBox label='家賃' content={building.rent + '万円'} />
-        <ItemBox label='築年数' content={building.age + '年'} />
-      </Box>
-      <Box sx={styles.unitItemBox}>
-        <ItemBox label='礼金' content={building.keyMoney + '万円'} />
-        <ItemBox label='敷金' content={building.deposit + '万円'} />
-      </Box>
-      <Box sx={styles.unitItemBox}>
-        <ItemBox label='向き' content={building.direction + '向き'} />
-        <ItemBox label='駅から' content={building.distanceMinutes + '分'} />
-      </Box>
-      <Box sx={styles.unitItemBox}>
-        <ItemBox label='間取り' content={building.floorPlan} />
-        <ItemBox label='専有面積' content={building.occupancyArea + '㎠'} />
-      </Box>
+      <ItemBox label='所在地' content={address} fullwidth />
+      <UnitItemBox itemBoxs={[{ label: '家賃', content: building.rent + '万円' },
+      { label: '築年数', content: building.age + '年' }]} />
+      <UnitItemBox itemBoxs={[{ label: '礼金', content: building.keyMoney + '万円' },
+      { label: '敷金', content: building.deposit + '万円' }]} />
+      <UnitItemBox itemBoxs={[{ label: '向き', content: building.direction + '向き' },
+      { label: '駅から', content: building.distanceMinutes + '分' }]} />
+      <UnitItemBox itemBoxs={[{ label: '間取り', content: building.floorPlan },
+      { label: '専有面積', content: building.occupancyArea + '㎠' }]} />
     </Box>
   )
 });
 
 DetailItemBlock.displayName = 'DetailItemBlock';
 
+const ItemBox = React.memo(({
+  label, content, fullwidth
+}: {
+  label: string, content: string, fullwidth?: boolean
+}) => <Box width={fullwidth ? '100%' : '50%'} sx={styles.itemBox}>
+    <Typography sx={styles.label}>{label}</Typography>
+    <Typography sx={styles.content}>{content}</Typography>
+  </Box>);
+ItemBox.displayName = 'ItemBox';
+
+const UnitItemBox = React.memo(({ itemBoxs }: { itemBoxs: { label: string, content: string }[] }) => {
+  const [width, height] = useWindowSize();
+  const isXs: boolean = width <= 600;
+  return <>{isXs ? <>{itemBoxs.map(itemBox =>
+    <ItemBox key={itemBox.label} label={itemBox.label} content={itemBox.content} fullwidth />)}</> :
+    <Box sx={styles.unitItemBox}>
+      {itemBoxs.map(itemBox => <ItemBox key={itemBox.label} label={itemBox.label} content={itemBox.content} />)}
+    </Box>}
+  </>
+});
+UnitItemBox.displayName = 'UnitItemBox';
+
 const styles: { [key: string]: SxProps<Theme> } = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    width: '50%',
+    width: { xs: '90%', lg: '50%' },
     gap: 2
   },
   itemBox: {
@@ -61,7 +68,7 @@ const styles: { [key: string]: SxProps<Theme> } = {
     flexDirection: 'row',
   },
   label: {
-    backgroundColor: 'gray',
+    backgroundColor: '#2e8b57',
     paddingY: 2,
     width: '20%',
     textAlign: 'center'

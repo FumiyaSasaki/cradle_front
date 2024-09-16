@@ -7,8 +7,8 @@ export const Header = React.memo(({ isBack }: { isBack?: boolean }) => {
     return (
         <AppBar sx={styles.appBar}>
             <Toolbar sx={styles.toolbar}>
-                <Typography sx={styles.title}>クレイドル</Typography>
-                <IconButton>{isBack ? <Link href={'/'}>HOME</Link> : <MenuIcon />}</IconButton>
+                <Typography sx={styles.title}><Link href={'/'}>クレイドル</Link> </Typography>
+                {/* <IconButton>{isBack ? <Link href={'/'}>HOME</Link> : <MenuIcon />}</IconButton> */}
             </Toolbar>
         </AppBar>
     );
@@ -24,12 +24,13 @@ const styles: { [key: string]: SxProps<Theme> } = {
     toolbar: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
         alignItems: 'center',
     },
     title: {
         color: 'black',
         fontSize: '22px',
-        fontWeight: '500'
+        fontWeight: '500',
+        paddingLeft: 8
     }
 };

@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Divider, SxProps, Theme, Typography } from '@mui/material';
 import { Header } from '@/components/common/Header';
-import { InquiryBlock } from '@/components/common/InquiryBlock';
 import { BlogType, useBlogStore } from '@/store/blog';
 import { getBlogByUid } from '@/core/api';
 
@@ -17,7 +16,7 @@ export const BlogPage = React.memo(({
         if (!blog) {
             getBlogByUid(uid).then(item => setBlog(item));
         };
-      }, []);
+    }, []);
 
     return <>
         <Header isBack />
@@ -28,7 +27,7 @@ export const BlogPage = React.memo(({
             <Box sx={styles.itemContainer}>
                 {blog.imageContents.map(item => (
                     <Box sx={styles.itemBox} key={item.title}>
-                        <img alt='' src={item.url} width='100%' height='400px' />
+                        <img alt='' src={item.url} width='100%' height='400px' style={{ objectFit: 'cover' }} />
                         <Typography sx={styles.itemTitle}>{item.title}</Typography>
                         <Typography sx={styles.itemContent}>{item.content}</Typography>
                     </Box>
@@ -36,7 +35,6 @@ export const BlogPage = React.memo(({
             </Box>
             <Divider flexItem />
         </Box>)}
-        <InquiryBlock />
     </>
 });
 
@@ -49,19 +47,20 @@ const styles: { [key: string]: SxProps<Theme> } = {
         justifyContent: 'center',
         alignItems: 'center',
         gap: 3,
-        marginY: 3
+        marginY: 3,
+        paddingTop: 5
     },
     titleBox: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '50%',
+        width: { xs: '90%', lg: '50%' },
         boxShadow: '2px 2px 4px gray',
-        borderTop: 'solid green',
+        borderTop: 'solid #2e8b57',
         padding: 1
     },
     itemContainer: {
-        width: '50%',
+        width: { xs: '90%', lg: '50%' },
         gap: 2,
         display: 'flex',
         flexDirection: 'column'

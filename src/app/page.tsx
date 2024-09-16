@@ -12,14 +12,11 @@ const Home = async () => {
   return (<>
     <Header />
     <TopImageBlock />
-    <Box mt={10}>
+    {/* <Box mt={10}> */}
       <BuildingBlock buildingData={topData.building} />
-    </Box>
+    {/* </Box> */}
     <Box mt={10}>
       <BlogBlock blogsData={topData.blog} />
-    </Box>
-    <Box>
-      <InquiryBlock />
     </Box>
   </>);
 };

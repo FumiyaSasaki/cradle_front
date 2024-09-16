@@ -22,7 +22,7 @@ MapBlock.displayName = 'MapBlock';
 
 const styles: { [key: string]: SxProps<Theme> } = {
   container: {
-    width: '50%',
+    width: { xs: '90%', lg: '50%' },
     border: '2px solid gray',
     padding: 1
   }
