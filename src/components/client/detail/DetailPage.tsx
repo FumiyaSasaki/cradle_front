@@ -1,27 +1,17 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
-import { BuildingType, useBuildingStore } from '@/store/building';
-import { getBuildingByUid } from '@/core/api';
+import { BuildingType } from '@/store/building';
 import { ImageBlock } from './ImageBlock';
 import { MapBlock } from './MapBlock';
 import { DetailItemBlock } from './DetailItemBlock';
 import { Header } from '@/components/common/Header';
-import { InquiryBlock } from '@/components/common/InquiryBlock';
 
 export const DetailPage = React.memo(({
-  uid
+  building
 }: {
-  uid: string
+  building: BuildingType
 }) => {
-  const [building, setBuilding] = useState<BuildingType>(useBuildingStore().buildingState[uid]);
-
-  useEffect(() => {
-    if (!building) {
-      getBuildingByUid(uid).then(item => setBuilding(item));
-    };
-  }, []);
-
   return <>
     <Header isBack />
     {building && (<Box sx={styles.container}>

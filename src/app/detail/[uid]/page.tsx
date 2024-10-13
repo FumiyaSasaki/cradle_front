@@ -1,5 +1,5 @@
 import { BuildingType } from '@/store/building';
-import { getAllBuilding } from '@/core/api';
+import { getAllBuilding, getBuildingByUid } from '@/core/api';
 import { DetailPage } from '@/components/client/detail/DetailPage';
 
 export const generateStaticParams = async () => {
@@ -9,8 +9,9 @@ export const generateStaticParams = async () => {
   }));
 };
 
-const Detail = ({ params }: { params: { uid: string } }) => {
-  return <DetailPage uid={params.uid} />
+const Detail = async ({ params }: { params: { uid: string } }) => {
+  const building: BuildingType = await getBuildingByUid(params.uid);
+  return <DetailPage building={building} />
 };
 
 export default Detail;

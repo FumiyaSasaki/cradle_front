@@ -1,23 +1,14 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, Divider, SxProps, Theme, Typography } from '@mui/material';
 import { Header } from '@/components/common/Header';
-import { BlogType, useBlogStore } from '@/store/blog';
-import { getBlogByUid } from '@/core/api';
+import { BlogType } from '@/store/blog';
 
 export const BlogPage = React.memo(({
-    uid
+    blog
 }: {
-    uid: string
+    blog: BlogType
 }) => {
-    const [blog, setBlog] = useState<BlogType>(useBlogStore().blogState[uid]);
-
-    useEffect(() => {
-        if (!blog) {
-            getBlogByUid(uid).then(item => setBlog(item));
-        };
-    }, []);
-
     return <>
         <Header isBack />
         {blog && (<Box sx={styles.container}>
