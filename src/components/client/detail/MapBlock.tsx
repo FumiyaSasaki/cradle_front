@@ -9,7 +9,7 @@ export const MapBlock = React.memo(({
 }) => {
   const Map = React.useMemo(() =>
     dynamic(() => import('../../common/MapDisplay'), {
-      loading: () => <p>A map is loading</p>,
+      loading: () => <p>A map is loading...</p>,
       ssr: false,
     }), []);
 
