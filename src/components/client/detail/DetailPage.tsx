@@ -47,7 +47,7 @@ const styles: { [key: string]: SxProps<Theme> } = {
     justifyContent: 'center',
     alignItems: 'center',
     gap: 3,
-    paddingTop: 5,
+    paddingTop: 8,
   },
   titleBox: {
     display: 'flex',

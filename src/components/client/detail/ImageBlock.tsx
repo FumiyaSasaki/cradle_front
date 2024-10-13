@@ -24,7 +24,7 @@ export const ImageBlock = React.memo(({
     }, []);
 
     useEffect(() => {
-        setTitle(imageContent[activeIndex].title + activeIndex);
+        setTitle(imageContent[activeIndex].title);
         setNumberSheet(activeIndex + 1);
     }, [activeIndex]);
 

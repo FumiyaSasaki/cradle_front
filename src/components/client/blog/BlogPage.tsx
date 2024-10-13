@@ -27,7 +27,7 @@ export const BlogPage = React.memo(({
             <Box sx={styles.itemContainer}>
                 {blog.imageContents.map(item => (
                     <Box sx={styles.itemBox} key={item.title}>
-                        <img alt='' src={item.url} width='100%' height='400px' style={{ objectFit: 'cover' }} />
+                        <img alt='' src={item.url} width='100%' height='400px' style={{ objectFit: 'contain' }} />
                         <Typography sx={styles.itemTitle}>{item.title}</Typography>
                         <Typography sx={styles.itemContent}>{item.content}</Typography>
                     </Box>
@@ -48,7 +48,7 @@ const styles: { [key: string]: SxProps<Theme> } = {
         alignItems: 'center',
         gap: 3,
         marginY: 3,
-        paddingTop: 5
+        paddingTop: 8
     },
     titleBox: {
         display: 'flex',
