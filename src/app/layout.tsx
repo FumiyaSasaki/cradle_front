@@ -18,7 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ja' >
+    <html lang='ja'>
+      <head>
+        <link rel="icon" href={'../../favicon.png'} />
+      </head>
       <body className={inter.className}>
         <Box mt={'3%'}>
           {children}
