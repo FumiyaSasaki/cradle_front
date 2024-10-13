@@ -15,8 +15,8 @@ const MapDisplay = React.memo(({
   return (
     <MapContainer center={position} zoom={18}>
       <TileLayer
-        attribution='© <a href="https://maps.gsi.go.jp/development/ichiran.html">国土地理院</a>'
-        url='https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
+        attribution='<a href="https://developers.google.com/maps/documentation" target="_blank">Google Map</a>'
+        url="https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}"
       />
       <Marker position={position}>
         <Popup className='popup'>{name}</Popup>

@@ -11,11 +11,17 @@ export const DetailItemBlock = React.memo(({
   const [address] = useState<string>(building.prefecture + building.city +
     building.town + building.address + building.building);
 
+  const formatYear = (age: Date) => {
+    const ageOfBuilding: number = new Date(age).getUTCFullYear();
+    const now: number = new Date().getUTCFullYear();
+    return `${ageOfBuilding}年（築年数 : ${now - ageOfBuilding}年）`;
+  };
+
   return (
     <Box sx={styles.container}>
       <ItemBox label='所在地' content={address} fullwidth />
       <UnitItemBox itemBoxs={[{ label: '家賃', content: building.rent + '万円' },
-      { label: '築年数', content: building.age + '年' }]} />
+      { label: '築年数', content: formatYear(building.age) }]} />
       <UnitItemBox itemBoxs={[{ label: '礼金', content: building.keyMoney + '万円' },
       { label: '敷金', content: building.deposit + '万円' }]} />
       <UnitItemBox itemBoxs={[{ label: '向き', content: building.direction + '向き' },

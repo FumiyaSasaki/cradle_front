@@ -14,7 +14,7 @@ export type BuildingType = {
     direction: string;
     imageContents: ImageContentType[];
     distanceMinutes: number;
-    age: number;
+    age: Date;
     occupancyArea: number;
     deposit: number;
     keyMoney: number;
