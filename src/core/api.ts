@@ -12,7 +12,7 @@ const fetchApi = async (path: string, body?: string) => {
         return response.json();
     } catch (error) {
         console.log(error);
-        throw new Error('failed.');
+        throw new Error('failed Api.');
     }
 };
 
