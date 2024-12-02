@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang='ja'>
       <head>
-        <link rel="icon" href={'../../favicon.png'} />
+        <link rel="icon" href={'./favicon.png'} />
       </head>
       <body className={inter.className}>
         <Box mt={'3%'}>
