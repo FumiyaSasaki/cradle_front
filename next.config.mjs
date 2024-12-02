@@ -2,7 +2,7 @@
 const nextConfig = {
     output: 'export',
     trailingSlash: true,
-    distDir: 'stg',
+    distDir: 'home',
     compiler: {
         styledComponents: true,
     },

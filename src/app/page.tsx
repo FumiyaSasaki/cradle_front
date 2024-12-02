@@ -10,7 +10,7 @@ const Home = async () => {
   const topData: TopDataType = await getAllTopData();
   return (<>
     <Header />
-    <TopImageBlock />
+    <TopImageBlock images={topData.homeImages}/>
     <BuildingBlock buildingData={topData.building} />
     <Box mt={10}>
       <BlogBlock blogsData={topData.blog} />

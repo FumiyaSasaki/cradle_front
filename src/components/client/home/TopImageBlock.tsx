@@ -5,8 +5,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
+import { ImageContentType } from '@/types/Common.type';
 
-export const TopImageBlock = React.memo(() => {
+export const TopImageBlock = React.memo(({ images }: { images: ImageContentType[] }) => {
     const topImages = ['/home/yamanashiCradle.jpg', '/home/ibarakiCopo.jpg'];
     return (
         <Box sx={styles.container}>
@@ -20,10 +21,10 @@ export const TopImageBlock = React.memo(() => {
                 modules={[Autoplay, EffectFade]}
                 speed={2000}
                 className='mySwiper'>
-                {topImages.map(image => (
-                    <SwiperSlide key={image}>
+                {images.map(image => (
+                    <SwiperSlide key={image.url}>
                         <Box sx={styles.swiperSlideBox}>
-                            <img alt='' src={image} width={'100%'} height={'100%'}
+                            <img alt='' src={image.url} width={'100%'} height={'100%'}
                                 style={{ objectFit: 'cover', display: 'flex' }} />
                         </Box>
                     </SwiperSlide>

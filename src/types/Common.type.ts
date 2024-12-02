@@ -35,4 +35,4 @@ export type ImageContentType = {
     content: string;
 };
 
-export type TopDataType = { building: BuildingType[], blog: BlogType[] };
+export type TopDataType = { building: BuildingType[], blog: BlogType[], homeImages: ImageContentType[] };
