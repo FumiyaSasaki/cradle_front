@@ -4,6 +4,7 @@ import '../styles/globals.css';
 import { Footer } from '@/components/common/Footer';
 import { Box } from '@mui/material';
 import { InquiryBlock } from '@/components/common/InquiryBlock';
+import { prefixPath } from '@/helper/global';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang='ja'>
       <head>
-        <link rel="icon" href={'./favicon.png'} />
+        <link rel="icon" href={`${prefixPath}/favicon.png`} />
       </head>
       <body className={inter.className}>
         <Box mt={'3%'}>

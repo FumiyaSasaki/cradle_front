@@ -1,10 +1,12 @@
+const prefixPath = String(process.env.NEXT_PUBLIC_NODE_ENV);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'export',
     trailingSlash: true,
     distDir: 'home',
-    assetPrefix: '/stg/home',
-    basePath: '/stg/home',
+    assetPrefix: prefixPath,
+    basePath: prefixPath,
     compiler: {
         styledComponents: true,
     },

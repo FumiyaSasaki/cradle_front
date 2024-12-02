@@ -2,6 +2,7 @@ import { AppBar, SxProps, Theme, Toolbar, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import React from 'react';
 import Link from 'next/link';
+import { prefixPath } from '@/helper/global';
 
 export const Header = React.memo(({ isBack }: { isBack?: boolean }) => {
     const linkStyle: React.CSSProperties = {
@@ -12,7 +13,7 @@ export const Header = React.memo(({ isBack }: { isBack?: boolean }) => {
     return (
         <AppBar sx={styles.appBar}>
             <Toolbar sx={{ ...styles.toolbar, justifyContent: isBack ? 'space-around' : 'space-between' }}>
-                <Link href={'/'} style={linkStyle}><img src={'/logo.png'} width={'7%'} height={'7%'} />
+                <Link href={'/'} style={linkStyle}><img src={`${prefixPath}/logo.png`} width={'7%'} height={'7%'} />
                     <Typography sx={styles.title} ml={1}>クレイドル</Typography></Link>
                 {isBack && <Typography sx={styles.title}>
                     <Link href={'/'} style={linkStyle}><ArrowBackIcon />Top</Link></Typography>}
