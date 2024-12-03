@@ -17,7 +17,7 @@ export const DetailPage = React.memo(({
     {building && (<Box sx={styles.container}>
       <Box sx={styles.titleBox}>
         <Typography sx={styles.title}>{building.name}</Typography>
-        <Typography sx={styles.title}>家賃・{building.rent}万円</Typography>
+        <Typography sx={styles.title}>家賃 {building.rent}万円</Typography>
       </Box>
       <ImageBlock imageContent={building.imageContents} />
       <DetailItemBlock building={building} />
