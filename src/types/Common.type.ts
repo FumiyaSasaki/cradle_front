@@ -1,3 +1,5 @@
+import { ParkingType } from "@/store/parking";
+
 export type BuildingType = {
     uid: string;
     name: string;
@@ -35,4 +37,4 @@ export type ImageContentType = {
     content: string;
 };
 
-export type TopDataType = { building: BuildingType[], blog: BlogType[], homeImages: ImageContentType[] };
+export type TopDataType = { building: BuildingType[], parkingData: ParkingType[], blog: BlogType[], homeImages: ImageContentType[] };

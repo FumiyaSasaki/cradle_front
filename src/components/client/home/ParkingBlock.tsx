@@ -3,32 +3,32 @@ import { Box, SxProps, Theme, Typography } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import { BuildingType, useBuildingStore } from '@/store/building';
-import ApartmentIcon from '@mui/icons-material/Apartment';
+import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
 import { TitleBox } from '@/components/convenience/TitleBox';
+import { ParkingType, useParkingStore } from '@/store/parking';
 
-export const BuildingBlock = React.memo(({
-    buildingData
+export const ParkingBlock = React.memo(({
+    parkingData
 }: {
-    buildingData: BuildingType[];
+    parkingData: ParkingType[];
 }) => {
-    const setBuilding = useCallback(useBuildingStore((state) => state.setBuildingState), []);
+    const setParking = useCallback(useParkingStore((state) => state.setParkingState), []);
 
     useEffect(() => {
-        setBuilding(buildingData);
+        setParking(parkingData);
     }, []);
 
     return (<Box sx={styles.container}>
         <TitleBox
-            title={'物件一覧'}
-            Icon={ApartmentIcon}
+            title={'駐車場・駐輪場一覧'}
+            Icon={EmojiTransportationIcon}
         />
         <Box sx={styles.itemContainer}>
-            {buildingData.map((item: BuildingType) => (
+            {parkingData.map((item: ParkingType) => (
                 <Box sx={styles.itemBox} key={item.uid}>
-                    <Link href={`/detail/building/${item.uid}`}>
-                        <Box sx={styles.icon} bgcolor={item.isVacancy ? 'yellow' : 'white'}>
-                            <span>{item.isVacancy ? '募集中' : '満室'}</span>
+                    <Link href={`/detail/parking/${item.uid}`}>
+                        <Box sx={styles.icon} bgcolor={item.vacancyPlaces ? 'yellow' : 'white'}>
+                            <span>{item.vacancyPlaces ? '募集中' : '満室'}</span>
                         </Box>
                         <img alt='' src={item.imageContents[0].url} width='100%' height='auto'
                             style={{ borderTopLeftRadius: '6px', borderTopRightRadius: '6px' }} />
@@ -46,7 +46,7 @@ export const BuildingBlock = React.memo(({
     </Box>);
 });
 
-BuildingBlock.displayName = 'BuildingBlock';
+ParkingBlock.displayName = 'ParkingBlock';
 
 const styles: { [key: string]: SxProps<Theme> } = {
     container: {

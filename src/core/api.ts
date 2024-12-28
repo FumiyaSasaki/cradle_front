@@ -17,6 +17,7 @@ const fetchApi = async (path: string, body?: string) => {
 };
 
 const BUILDING = 'building';
+const PARKING = 'parking';
 const COMPOSITE = 'composite';
 const BLOG = 'blog';
 
@@ -24,8 +25,13 @@ export const getBuildingByUid = async (uid: string) => {
     const body: string = JSON.stringify({ uid });
     return await fetchApi(BUILDING + '/getbuildingbyuid', body);
 };
+export const getParkingByUid = async (uid: string) => {
+    const body: string = JSON.stringify({ uid });
+    return await fetchApi(PARKING + '/getparkingbyuid', body);
+};
 
 export const getAllBuilding = async () => await fetchApi(BUILDING + '/getallbuilding');
+export const getAllParking = async () => await fetchApi(PARKING + '/getallparking');
 export const getAllTopData = async () => await fetchApi(COMPOSITE + '/getalltopdata');
 export const getAllBlog = async () => await fetchApi(BLOG + '/getallblog');
 export const getBlogByUid = async (uid: string) => {

@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Box, SxProps, Theme, Typography } from '@mui/material';
 import { BuildingType } from '@/store/building';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { ParkingType } from '@/store/parking';
 
 export const DetailItemBlock = React.memo(({
   building
 }: {
-  building: BuildingType
+  building: BuildingType | ParkingType
 }) => {
+  const isBuilding = 'direction' in building;
   const [address] = useState<string>(building.prefecture + building.city +
-    building.town + building.address + building.building);
+    building.town + building.address + (isBuilding ? building.building : ''));
 
   const formatYear = (age: Date) => {
     const ageOfBuilding: number = new Date(age).getUTCFullYear();
@@ -24,10 +26,12 @@ export const DetailItemBlock = React.memo(({
       { label: '築年数', content: formatYear(building.age) }]} />
       <UnitItemBox itemBoxs={[{ label: '礼金', content: building.keyMoney + '万円' },
       { label: '敷金', content: building.deposit + '万円' }]} />
-      <UnitItemBox itemBoxs={[{ label: '向き', content: building.direction + '向き' },
-      { label: '駅から', content: building.distanceMinutes + '分' }]} />
-      <UnitItemBox itemBoxs={[{ label: '間取り', content: building.floorPlan },
-      { label: '専有面積', content: building.occupancyArea + '㎠' }]} />
+      {isBuilding && <>
+        <UnitItemBox itemBoxs={[{ label: '向き', content: building.direction + '向き' },
+        { label: '駅から', content: building.distanceMinutes + '分' }]} />
+        <UnitItemBox itemBoxs={[{ label: '間取り', content: building.floorPlan },
+        { label: '専有面積', content: building.occupancyArea + '㎠' }]} />
+      </>}
     </Box>
   )
 });

@@ -6,11 +6,12 @@ import { ImageBlock } from './ImageBlock';
 import { MapBlock } from './MapBlock';
 import { DetailItemBlock } from './DetailItemBlock';
 import { Header } from '@/components/common/Header';
+import { ParkingType } from '@/store/parking';
 
 export const DetailPage = React.memo(({
   building
 }: {
-  building: BuildingType
+  building: BuildingType | ParkingType
 }) => {
   return <>
     <Header isBack />
