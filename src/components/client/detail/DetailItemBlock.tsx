@@ -5,13 +5,13 @@ import { useWindowSize } from '@/hooks/useWindowSize';
 import { ParkingType } from '@/store/parking';
 
 export const DetailItemBlock = React.memo(({
-  building
+  property
 }: {
-  building: BuildingType | ParkingType
+  property: BuildingType | ParkingType
 }) => {
-  const isBuilding = 'direction' in building;
-  const [address] = useState<string>(building.prefecture + building.city +
-    building.town + building.address + (isBuilding ? building.building : ''));
+  const isBuilding = 'direction' in property;
+  const [address] = useState<string>(property.prefecture + property.city +
+    property.town + property.address + (isBuilding ? property.building : ''));
 
   const formatYear = (age: Date) => {
     const ageOfBuilding: number = new Date(age).getUTCFullYear();
@@ -22,16 +22,19 @@ export const DetailItemBlock = React.memo(({
   return (
     <Box sx={styles.container}>
       <ItemBox label='所在地' content={address} fullwidth />
-      <UnitItemBox itemBoxs={[{ label: '家賃', content: building.rent + '万円' },
-      { label: '築年数', content: formatYear(building.age) }]} />
-      <UnitItemBox itemBoxs={[{ label: '礼金', content: building.keyMoney + '万円' },
-      { label: '敷金', content: building.deposit + '万円' }]} />
+      <UnitItemBox itemBoxes={[{ label: '家賃', content: property.rent + '万円' },
+      { label: '築年数', content: formatYear(property.age) }]} />
+      <UnitItemBox itemBoxes={[{ label: '礼金', content: property.keyMoney + '万円' },
+      { label: '敷金', content: property.deposit + '万円' }]} />
       {isBuilding && <>
-        <UnitItemBox itemBoxs={[{ label: '向き', content: building.direction + '向き' },
-        { label: '駅から', content: building.distanceMinutes + '分' }]} />
-        <UnitItemBox itemBoxs={[{ label: '間取り', content: building.floorPlan },
-        { label: '専有面積', content: building.occupancyArea + '㎠' }]} />
+        <UnitItemBox itemBoxes={[{ label: '向き', content: property.direction + '向き' },
+        { label: '駅から', content: property.distanceMinutes + '分' }]} />
+        <UnitItemBox itemBoxes={[{ label: '間取り', content: property.floorPlan },
+        { label: '専有面積', content: property.occupancyArea + '㎠' }]} />
       </>}
+      {property.remarks &&
+        <ItemBox label='備考' content={property.remarks} fullwidth />
+      }
     </Box>
   )
 });
@@ -48,13 +51,13 @@ const ItemBox = React.memo(({
   </Box>);
 ItemBox.displayName = 'ItemBox';
 
-const UnitItemBox = React.memo(({ itemBoxs }: { itemBoxs: { label: string, content: string }[] }) => {
+const UnitItemBox = React.memo(({ itemBoxes }: { itemBoxes: { label: string, content: string }[] }) => {
   const [width, height] = useWindowSize();
   const isXs: boolean = width <= 600;
-  return <>{isXs ? <>{itemBoxs.map(itemBox =>
+  return <>{isXs ? <>{itemBoxes.map(itemBox =>
     <ItemBox key={itemBox.label} label={itemBox.label} content={itemBox.content} fullwidth />)}</> :
     <Box sx={styles.unitItemBox}>
-      {itemBoxs.map(itemBox => <ItemBox key={itemBox.label} label={itemBox.label} content={itemBox.content} />)}
+      {itemBoxes.map(itemBox => <ItemBox key={itemBox.label} label={itemBox.label} content={itemBox.content} />)}
     </Box>}
   </>
 });

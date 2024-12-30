@@ -8,7 +8,6 @@ import 'swiper/css/effect-fade';
 import { ImageContentType } from '@/types/Common.type';
 
 export const TopImageBlock = React.memo(({ images }: { images: ImageContentType[] }) => {
-    const topImages = ['/home/yamanashiCradle.jpg', '/home/ibarakiCopo.jpg'];
     return (
         <Box sx={styles.container}>
             <Swiper slidesPerView={1}

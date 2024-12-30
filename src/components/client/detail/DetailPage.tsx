@@ -9,22 +9,22 @@ import { Header } from '@/components/common/Header';
 import { ParkingType } from '@/store/parking';
 
 export const DetailPage = React.memo(({
-  building
+  property
 }: {
-  building: BuildingType | ParkingType
+  property: BuildingType | ParkingType
 }) => {
   return <>
     <Header isBack />
-    {building && (<Box sx={styles.container}>
+    {property && (<Box sx={styles.container}>
       <Box sx={styles.titleBox}>
-        <Typography sx={styles.title}>{building.name}</Typography>
-        <Typography sx={styles.title}>家賃 {building.rent}万円</Typography>
+        <Typography sx={styles.title}>{property.name}</Typography>
+        <Typography sx={styles.title}>家賃 {property.rent}万円</Typography>
       </Box>
-      <ImageBlock imageContent={building.imageContents} />
-      <DetailItemBlock building={building} />
-      <MapBlock name={building.name}
-        latitude={building.latitude}
-        longitude={building.longitude} />
+      <ImageBlock imageContent={property.imageContents} />
+      <DetailItemBlock property={property} />
+      <MapBlock name={property.name}
+        latitude={property.latitude}
+        longitude={property.longitude} />
     </Box>)}
   </>
 });

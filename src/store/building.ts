@@ -12,6 +12,7 @@ export type BuildingType = {
     building: string;
     floorPlan: string;
     direction: string;
+    remarks: string;
     imageContents: ImageContentType[];
     distanceMinutes: number;
     age: Date;

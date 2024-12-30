@@ -18,7 +18,7 @@ export const generateStaticParams = async () => {
 const Detail = async ({ params }: { params: { uid: string } }) => {
   const building: BuildingType | ParkingType = params.uid[0] === 'building' ?
     await getBuildingByUid(params.uid[1]) : await getParkingByUid(params.uid[1]);
-  return <DetailPage building={building} />
+  return <DetailPage property={building} />
 };
 
 export default Detail;

@@ -10,6 +10,7 @@ export type ParkingType = {
     town: string;
     address: string;
     vacancyPlaces: string;
+    remarks: string;
     imageContents: ImageContentType[];
     age: Date;
     deposit: number;
